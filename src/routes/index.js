@@ -9,13 +9,9 @@ router.get("/", SessionController.checkHasActiveSession, (req, res) => {
 });
 
 router.get("/home", SessionController.checkHasActiveSession, (req, res) => {
-  res.render("./pages/home");
+  res.render("./pages/home",{name: req.session.user.name});
 });
 
-router.get("/login", (req, res) => {
-  res.render("./pages/login");
-});
-
-router.post("/login", UserController.login);
+router.use(require('./login.route'));
 
 module.exports = router;

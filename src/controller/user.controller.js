@@ -1,9 +1,8 @@
 const userService = require("../service/user.service");
-const UserService = require("../service/user.service");
-
 class UserController {
   constructor() {
     this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
   }
 
   async login(req, res, next) {
@@ -15,7 +14,20 @@ class UserController {
       res.redirect("/home");
     } catch (err) {
       console.error(err);
-      res.redirect("/login");
+      throw err;
+    }
+  }
+
+  async register(req, res, next) {
+    const { name, password } = req.body;
+    try {
+      const user = await userService.register(name, password);
+      if (user) {
+        req.session.user = user;
+        res.redirect("/home");
+      }
+    } catch (err) {
+      throw err;
     }
   }
 }
