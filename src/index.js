@@ -5,12 +5,12 @@ const session = require("express-session");
 const config = require("./config");
 require("../src/config/database.config");
 
-app.on('unhandledException', (...params) => {
+app.on("unhandledException", (...params) => {
   console.error(params);
   process.exit(1);
 });
 
-app.on('unhandledRejection', (...params) => {
+app.on("unhandledRejection", (...params) => {
   console.error(params);
   process.exit(1);
 });
